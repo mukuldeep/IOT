@@ -5,6 +5,8 @@
 #include "soc/soc.h"           // Disable brownout problems
 #include "soc/rtc_cntl_reg.h"  // Disable brownout problems
 
+#define FLASH_GPIO_NUM 4
+
 // Pin definition for AI-THINKER ESP32-CAM
 #define PWDN_GPIO_NUM     32
 #define RESET_GPIO_NUM    -1
@@ -28,6 +30,10 @@ int pictureCount = 0;
 void setup() {
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); // Disable brownout detector
   Serial.begin(115200);
+
+  //LED PIN
+  pinMode(FLASH_GPIO_NUM, OUTPUT);
+  digitalWrite(FLASH_GPIO_NUM, LOW);
 
   // Camera Configuration
   camera_config_t config;
@@ -54,9 +60,10 @@ void setup() {
 
   // Image Quality Settings
   if(psramFound()){
-    //config.frame_size = FRAMESIZE_VGA; // 640x480 (Better for speed/storage)
-    config.frame_size = FRAMESIZE_UXGA; // 1600x1200 (Best Quality)
-    config.jpeg_quality = 7;          // 0-63, lower is higher quality
+    config.frame_size = FRAMESIZE_VGA; // 640x480 (Better for speed/storage)
+    //config.frame_size = FRAMESIZE_HD; // 1280x720 wide
+    //config.frame_size = FRAMESIZE_UXGA; // 1600x1200 (Best Quality)
+    config.jpeg_quality = 3;          // 0-63, lower is higher quality
     config.fb_count = 2;
   } else {
     config.frame_size = FRAMESIZE_SVGA;
@@ -79,8 +86,25 @@ void setup() {
 }
 
 void loop() {
+
+  //Turn Flash ON
+  digitalWrite(FLASH_GPIO_NUM, HIGH);
+  delay(150); // Give the sensor a moment to adjust to the light
+
+  for(int i = 0; i < 2; i++) {
+    camera_fb_t * dummy_fb = esp_camera_fb_get();
+    esp_camera_fb_return(dummy_fb); 
+    delay(200); // Give the hardware time to react
+  }
+
   // 1. Take Picture
   camera_fb_t * fb = esp_camera_fb_get();
+
+  // Turn Flash OFF immediately to save power/heat
+  delay(100);
+  digitalWrite(FLASH_GPIO_NUM, LOW);
+  delay(10);
+
   if(!fb) {
     Serial.println("Camera capture failed");
     return;
@@ -104,6 +128,6 @@ void loop() {
   // 4. Return frame buffer to be reused
   esp_camera_fb_return(fb);
 
-  // 5. Wait 1 second
-  delay(1000);
+  // 5. Wait 2 second
+  delay(2000);
 }
