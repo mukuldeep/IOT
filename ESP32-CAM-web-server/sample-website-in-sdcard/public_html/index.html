@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website From ESP32</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/material.indigo-pink.min.css">
+    <script defer src="js/material.min.js"></script>
+
+    <style>
+        .mdl-layout__content { padding: 40px; }
+        .page-content { max-width: 900px; margin: auto; }
+        .demo-card-wide.mdl-card { width: 100%; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">Creative Space</span>
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="">Projects</a>
+                    <a class="mdl-navigation__link" href="">About</a>
+                    <a class="mdl-navigation__link" href="">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Menu</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="">Projects</a>
+                <a class="mdl-navigation__link" href="">About</a>
+                <a class="mdl-navigation__link" href="">Contact</a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                
+                <h2>Welcome to my site</h2>
+                <p>This page was served by <b>ESP32</b>. It's responsive, clean.</p>
+
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Latest Project</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        This is a wide card layout. You can use it to highlight your best work or recent blog posts.
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+
+                <section>
+                    <h4>Stay Updated</h4>
+                    <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Email Address...</label>
+                        </div>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                            Subscribe
+                        </button>
+                    </form>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
